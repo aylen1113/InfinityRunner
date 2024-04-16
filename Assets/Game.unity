@@ -389,7 +389,7 @@ MonoBehaviour:
   speed: 15
   rb: {fileID: 381882973}
   horizontalMultiplier: 1.7
-  speedIncrease: 0.1
+  speedIncrease: 0.5
   jumpForce: 600
   groundMask:
     serializedVersion: 2
