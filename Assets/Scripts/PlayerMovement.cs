@@ -12,7 +12,10 @@ public class PlayerMovement : MonoBehaviour
     float horizontalInput;
     public float horizontalMultiplier = 2;
     bool alive = true;
+    public float speedIncrease = 0.1f;
 
+    [SerializeField] float jumpForce = 100f;
+    [SerializeField] LayerMask groundMask;
 
 
     private void FixedUpdate()
@@ -27,10 +30,16 @@ public class PlayerMovement : MonoBehaviour
     {
          horizontalInput = Input.GetAxis("Horizontal");
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();
+
+        }
         if (transform.position.y < -5)
         {
             Death();
         }
+
     }
 
 
@@ -44,6 +53,16 @@ public class PlayerMovement : MonoBehaviour
     void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    void Jump()
+    {
+        float height = GetComponent<Collider>().bounds.size.y;
+        bool isGrounded = Physics.Raycast(transform.position, Vector3.down, (height / 2) + 0.1f, groundMask);
+
+        rb.AddForce(Vector3.up * jumpForce);
+
+
     }
 }
 
